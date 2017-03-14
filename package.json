@@ -1,0 +1,22 @@
+{
+  "name": "node-selenium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kazuma-ickw/node-selenium.git"
+  },
+  "author": "kazuma-ickw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kazuma-ickw/node-selenium/issues"
+  },
+  "homepage": "https://github.com/kazuma-ickw/node-selenium#readme",
+  "dependencies": {
+    "selenium-webdriver": "^3.3.0"
+  }
+}
