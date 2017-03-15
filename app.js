@@ -1,6 +1,7 @@
 const {Builder, By, until} = require('selenium-webdriver')
 const fs = require('fs')
 
+const URL = ''
 let driver = new Builder()
 .usingServer('http://0.0.0.0:32768/wd/hub')
 .withCapabilities({
@@ -8,13 +9,25 @@ let driver = new Builder()
 })
 .build()
 
-driver.get('http://www.google.com/ncr')
-driver.findElement(By.name('q')).sendKeys('webdriver')
-driver.findElement(By.name('btnG')).click()
-driver.wait(until.titleIs('webdriver - Google Search'), 1000);
+driver.get(URL)
+
+var i = 0;
 driver.takeScreenshot().then((data) => {
-  fs.writeFile('./test.png', data.replace(/^data:image\/png;base64,/,''), 'base64', function(err) {
+  fs.writeFile('./ss' + i + '.png', data.replace(/^data:image\/png;base64,/,''), 'base64', function(err) {
     if(err) throw err
   })
 })
-driver.quit()
+
+var id = setInterval(() => {
+  i++;
+  driver.takeScreenshot().then((data) => {
+    fs.writeFile('./ss' + i + '.png', data.replace(/^data:image\/png;base64,/,''), 'base64', function(err) {
+      if(err) throw err
+    })
+  })
+  console.log('screeenshot' + i);
+  if (i > 10) {
+    clearInterval(id)
+    driver.quit()
+  }
+}, 20000)
