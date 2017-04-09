@@ -1,5 +1,6 @@
 const {Builder, By, until} = require('selenium-webdriver')
 const fs = require('fs')
+const util = require('util')
 const URL = require('url').URL
 
 if (process.argv[2] == undefined) {
@@ -18,6 +19,7 @@ try {
 console.log('target is: ' + targetUrl.href)
 const WAITING_MILLISECONDS = 20000
 const CAPUTURE_TIMES = 10
+const SAVE_DIR = '/tmp'
 
 let driver = new Builder()
 .usingServer('http://0.0.0.0:32768/wd/hub')
@@ -33,7 +35,7 @@ console.log('start capturing.')
 let id = setInterval(() => {
   i++;
   driver.takeScreenshot().then((data) => {
-    fs.writeFile('./ss' + i + '.jpg', data.replace(/^data:image\/jpg;base64,/,''), 'base64', function(err) {
+    fs.writeFile(util.format('%s/ss%d.jpg', SAVE_DIR, i), data.replace(/^data:image\/jpg;base64,/,''), 'base64', function(err) {
       if(err) throw err
     })
   })
