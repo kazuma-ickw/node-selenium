@@ -1,7 +1,21 @@
 const {Builder, By, until} = require('selenium-webdriver')
 const fs = require('fs')
+const URL = require('url').URL
 
-const URL = ''
+if (process.argv[2] == undefined) {
+  console.log('argument 1 is undefined. Please set URL.')
+  process.exit()
+}
+
+let targetUrl
+try {
+  targetUrl = new URL(process.argv[2])
+} catch(err) {
+  console.log(err.stack)
+  process.exit()
+}
+
+console.log('target is: ' + targetUrl.href)
 const WAITING_MILLISECONDS = 20000
 const CAPUTURE_TIMES = 10
 
@@ -12,7 +26,7 @@ let driver = new Builder()
 })
 .build()
 
-driver.get(URL)
+driver.get(targetUrl.href)
 
 let i = 0;
 console.log('start capturing.')
